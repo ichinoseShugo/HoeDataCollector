@@ -4,9 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HoeDataCollector"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="600" Width="650"
+        Loaded="Window_Loaded" Unloaded="Window_Unloaded">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
+                <Label Name="XAxis" Content="xAxis" Width="100"/>
+                <Label Name="YAxis" Content="yAxis" Width="100"/>
+                <Label Name="ZAxis" Content="zAxis" Width="100"/>
+                <Label Name="check"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="フォルダ名："/>
+            <TextBox Name="NameInputBox" Width="100"/>
+            <ToggleButton x:Name="RecordButton" Content="データを記録する" 
+                  HorizontalAlignment="Left" Margin="5" Click="RecordButton_Click"/>
+        </StackPanel>
+        <TextBlock x:Name="WiiConnection" TextWrapping="Wrap" Text="Wii:" Margin="5"/>
+        <TextBlock x:Name="KinectConnection" TextWrapping="Wrap" Text="Kinect:" Margin="5"/>
+        <StackPanel Orientation="Horizontal">
+            <Grid>
+                <Image x:Name="ImageColor" Width="640" Height="360"/>
+                <Canvas x:Name="CanvasBody" Width="512" Height="424"/>
+            </Grid>
+            <StackPanel>
+                <oxy:PlotView Name="KinectPlot" Width="480" Height="180"/>
+                <oxy:PlotView Name="WiiPlot" Width="480" Height="180"/>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Window>
