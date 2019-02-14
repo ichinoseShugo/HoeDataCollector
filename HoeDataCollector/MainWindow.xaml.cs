@@ -162,17 +162,17 @@ namespace HoeDataCollector
             this.Dispatcher.BeginInvoke(
                 new Action(() =>
                 {
-                    XAxis.Content = "X:"+wiiState.AccelState.RawValues.X;
-                    YAxis.Content = "Y:"+wiiState.AccelState.RawValues.Y;
-                    ZAxis.Content = "Z:"+wiiState.AccelState.RawValues.Z;
+                    XAxis.Content = "XAxis:"+wiiState.AccelState.Values.X;
+                    YAxis.Content = "YAxis:" + wiiState.AccelState.Values.Y;
+                    ZAxis.Content = "ZAxis:" + wiiState.AccelState.Values.Z;
                 })
             );
             if (checkRecord)
             {
                 wiiWriter.WriteLine(StopWatch.ElapsedMilliseconds
-                    + "," + wiiState.AccelState.RawValues.X
-                    + "," + wiiState.AccelState.RawValues.Y
-                    + "," + wiiState.AccelState.RawValues.Z);
+                    + "," + wiiState.AccelState.Values.X
+                    + "," + wiiState.AccelState.Values.Y
+                    + "," + wiiState.AccelState.Values.Z);
             }
         }
 
@@ -236,7 +236,22 @@ namespace HoeDataCollector
                 PixelFormats.Bgra32, null, colorBuffer, colorFrameDesc.Width * (int)colorFrameDesc.BytesPerPixel);
                 //ImageColor.Source = bitmapSource;
                 ImageColor.SetCurrentValue(System.Windows.Controls.Image.SourceProperty, bitmapSource);
-
+                if (checkRecord && frameCount % 3 == 0)
+                {
+                    string time = StopWatch.ElapsedMilliseconds.ToString();
+                    while (time.Length<8)
+                    {
+                        time = "0" + time;
+                    }
+                    using (Stream stream =
+                    new FileStream(pathSaveFolder + "image/" + time + ".jpg", FileMode.Create))
+                    {
+                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                        encoder.Save(stream);
+                        stream.Close();
+                    }
+                }
                 frameCount++;
             }
         }
@@ -293,6 +308,8 @@ namespace HoeDataCollector
                 }
                 if (checkRecord)
                     kinectWriter.WriteLine();
+
+                return;
             }
         }
 

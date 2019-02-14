@@ -10,14 +10,6 @@
         Loaded="Window_Loaded" Unloaded="Window_Unloaded">
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <StackPanel Orientation="Horizontal">
-                <Label Name="XAxis" Content="xAxis" Width="100"/>
-                <Label Name="YAxis" Content="yAxis" Width="100"/>
-                <Label Name="ZAxis" Content="zAxis" Width="100"/>
-                <Label Name="check"/>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
             <Label Content="フォルダ名："/>
             <TextBox Name="NameInputBox" Width="100"/>
             <ToggleButton x:Name="RecordButton" Content="データを記録する" 
@@ -25,6 +17,12 @@
         </StackPanel>
         <TextBlock x:Name="WiiConnection" TextWrapping="Wrap" Text="Wii:" Margin="5"/>
         <TextBlock x:Name="KinectConnection" TextWrapping="Wrap" Text="Kinect:" Margin="5"/>
+        <StackPanel Orientation="Horizontal">
+            <Label Name="XAxis" Content="xAxis" Width="100"/>
+            <Label Name="YAxis" Content="yAxis" Width="100"/>
+            <Label Name="ZAxis" Content="zAxis" Width="100"/>
+            <Label Name="check"/>
+        </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Grid>
                 <Image x:Name="ImageColor" Width="640" Height="360"/>
